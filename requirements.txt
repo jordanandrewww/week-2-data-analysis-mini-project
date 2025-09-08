@@ -1,0 +1,6 @@
+pandas
+polars
+kagglehub
+matplotlib
+seaborn
+scikit-learn
