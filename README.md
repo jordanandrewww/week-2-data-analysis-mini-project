@@ -1,7 +1,5 @@
 # week-2-data-analysis-mini-project
 
-# Build/Test Badge
-
 # Project Description
 
 This project analyzes Taylor Swift’s concert tours dataset to explore attendance, revenue, and tour patterns. After cleaning and preparing the dataset, a KMeans clustering model is applied to identify groups of concerts (e.g., high-revenue stadium shows vs. smaller under-attended concerts). The project demonstrates skills in data cleaning, exploratory analysis, and machine learning clustering.
