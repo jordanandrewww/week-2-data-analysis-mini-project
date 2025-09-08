@@ -16,7 +16,8 @@ This data set was taken from kaggle.com at the following link: https://www.kaggl
 
 1. Clone the repository: 
 
-git clone <your-repo-link>
+git clone your-repo-link
+
 cd week-2-data-analysis-mini-project
 
 2. Install dependencies by running make install
