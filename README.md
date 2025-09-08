@@ -10,6 +10,16 @@ As a disclaimer, this dataset was last updated 2 years ago, which means it does 
 
 This data set was taken from kaggle.com at the following link: https://www.kaggle.com/datasets/gayu14/taylor-concert-tours-impact-on-attendance-and
 
+The data set contains the following columns:
+
+- City
+- Country
+- Venue
+- Opening act(s)
+- Attendance (tickets sold / available)
+- Revenue
+- Tour
+
 # Setup Instructions
 
 1. Clone the repository: 
