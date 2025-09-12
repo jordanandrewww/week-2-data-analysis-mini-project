@@ -2,6 +2,9 @@
 install:
 	python3 -m pip install -r requirements.txt
 
+test:
+	pytest -v
+
 # Run the data analysis script
 run:
 	python3 analyzedata.py
