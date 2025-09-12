@@ -12,6 +12,8 @@ As a disclaimer, this dataset was last updated 2 years ago, which means it does 
 
 This data set was taken from kaggle.com at the following link: https://www.kaggle.com/datasets/gayu14/taylor-concert-tours-impact-on-attendance-and
 
+The data set co
+
 # Setup Instructions
 
 1. Clone the repository: 
