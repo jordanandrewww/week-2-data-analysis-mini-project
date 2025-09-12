@@ -2,6 +2,10 @@
 
 # Project Description
 
+This mini project for week 3 is a continuation of week 2, where we practice using dev containers
+and creating unit tests/additional testing to ensure that core functions such as data loading, filtering, grouping, preprocessing, and machine learning model behavior, all function properly,
+with clear structure and edge case handling.
+
 This project analyzes Taylor Swift’s concert tours dataset to explore attendance, revenue, and tour patterns. After cleaning and preparing the dataset, a KMeans clustering model is applied to identify groups of concerts (e.g., high-revenue stadium shows vs. smaller under-attended concerts). The project demonstrates skills in data cleaning, exploratory analysis, and machine learning clustering.
 
 As a disclaimer, this dataset was last updated 2 years ago, which means it does not include data from Taylor Swift's most recent (and biggest) tour (The Era's Tour).
@@ -20,7 +24,16 @@ The data set contains the following columns:
 - Revenue
 - Tour
 
+# Development Environment
+
+A Dev Container is provided for a reproducible environment. When you open the repository in VS Code with the Dev Containers extension, all dependencies will be installed automatically based on:
+
+- .devcontainer/devcontainer.json
+- requirements.txt
+
 # Setup Instructions
+
+For running locally:
 
 1. Clone the repository: 
 
@@ -31,6 +44,27 @@ cd week-2-data-analysis-mini-project
 2. Install dependencies by running make install
 
 3. Run the script using make run
+
+4. Run tests using make tests
+
+For running in the dev container:
+
+0. Make sure you have Docker Desktop and Visual Studio Code with the Dev Containers extension installed.
+
+1. Clone the repository: 
+
+git clone your-repo-link
+
+cd week-2-data-analysis-mini-project
+
+2. Open the repository in VS code. You should see a prompt: "Reopen in Container"
+Click it. VS Code will build the container using .devcontainer/devcontainer.json. Wait for the container to finish building (first time may take a few minutes). Once inside the container, dependencies are already installed from requirements.txt.
+
+3. Once inside the container:
+
+- Run analysis: make run
+
+- Run tests: make test
 
 # Usage examples
 
@@ -56,4 +90,6 @@ cd week-2-data-analysis-mini-project
 
 4. Visualization
 
-- Scatterplot of Tickets_Sold vs. Revenue_clean colored by cluster
+- Scatterplot of Tickets_Sold vs. Revenue_clean colored by cluster (when run inside the dev
+container, you can view the scatterplot locally, as the file called clusters.png will be created
+automatically and you can click on it to view)
