@@ -1,7 +1,5 @@
 # week-2-data-analysis-mini-project
 
-# Build/Test Badge
-
 # Project Description
 
 This project analyzes Taylor Swift’s concert tours dataset to explore attendance, revenue, and tour patterns. After cleaning and preparing the dataset, a KMeans clustering model is applied to identify groups of concerts (e.g., high-revenue stadium shows vs. smaller under-attended concerts). The project demonstrates skills in data cleaning, exploratory analysis, and machine learning clustering.
@@ -12,13 +10,22 @@ As a disclaimer, this dataset was last updated 2 years ago, which means it does 
 
 This data set was taken from kaggle.com at the following link: https://www.kaggle.com/datasets/gayu14/taylor-concert-tours-impact-on-attendance-and
 
-The data set co
+The data set contains the following columns:
+
+- City
+- Country
+- Venue
+- Opening act(s)
+- Attendance (tickets sold / available)
+- Revenue
+- Tour
 
 # Setup Instructions
 
 1. Clone the repository: 
 
-git clone <your-repo-link>
+git clone your-repo-link
+
 cd week-2-data-analysis-mini-project
 
 2. Install dependencies by running make install
