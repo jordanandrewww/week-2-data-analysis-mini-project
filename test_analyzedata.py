@@ -8,7 +8,7 @@ import analyzedata as ad
 # Unit Tests
 # -------------------------
 
-
+# tests that duplicates are removed correctly
 def test_clean_data_removes_duplicates():
     dataframe = pd.DataFrame(
         {
@@ -22,7 +22,7 @@ def test_clean_data_removes_duplicates():
     cleaned = ad.clean_data(dataframe)
     assert cleaned.shape[0] == 1  # duplicates removed
 
-
+# tests that revenue and attendance columns are cleaned and calculated correctly
 def test_clean_data_revenue_and_attendance():
     dataframe = pd.DataFrame(
         {
@@ -40,7 +40,7 @@ def test_clean_data_revenue_and_attendance():
     assert cleaned["Tickets_Available"].iloc[0] == 456
     assert np.isclose(cleaned["Attendance_Rate"].iloc[0], 123 / 456)
 
-
+# tests that division by zero in attendance rate is handled
 def test_clean_data_divide_by_zero():
     dataframe = pd.DataFrame(
         {
@@ -54,7 +54,7 @@ def test_clean_data_divide_by_zero():
     cleaned = ad.clean_data(dataframe)
     assert cleaned["Attendance_Rate"].iloc[0] == 100  # handled safely
 
-
+# tests that summarize_data returns expected keys
 def test_summarize_data_returns_expected_keys(sample_df):
     cleaned = ad.clean_data(sample_df)
     summaries = ad.summarize_data(cleaned)
@@ -69,7 +69,7 @@ def test_summarize_data_returns_expected_keys(sample_df):
 # Integration / System Tests
 # -------------------------
 
-
+# fixture to provide a sample dataframe for testing
 @pytest.fixture
 def sample_df():
     """Provide a small sample dataframe to simulate concerts."""
@@ -83,7 +83,7 @@ def sample_df():
         }
     )
 
-
+# tests the full data cleaning and summarization pipeline
 def test_run_kmeans_adds_cluster_labels(sample_df):
     cleaned = ad.clean_data(sample_df)
     clustered = ad.run_kmeans(cleaned, n_clusters=2)

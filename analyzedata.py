@@ -26,14 +26,7 @@ def clean_data(dataframe: pd.DataFrame) -> pd.DataFrame:
     # removes duplicates from the dataframe
     dataframe = dataframe.drop_duplicates().copy()
 
-    # cleans the Revenue column and creates a new numeric column
-    dataframe.loc[:, "Revenue_clean"] = (
-        dataframe["Revenue"]
-        .astype(str)
-        .str.replace(r"[^\d.]", "", regex=True)
-        .replace("", "0")
-        .astype(float)
-    )
+    clean_rev(dataframe)
 
     attendance_split = split_attendance_col(dataframe)
 
@@ -49,6 +42,16 @@ def clean_data(dataframe: pd.DataFrame) -> pd.DataFrame:
     ].replace(0, 1)
 
     return dataframe
+
+# Helper function that cleans the Revenue column and creates a new numeric column
+def clean_rev(dataframe):
+    dataframe.loc[:, "Revenue_clean"] = (
+        dataframe["Revenue"]
+        .astype(str)
+        .str.replace(r"[^\d.]", "", regex=True)
+        .replace("", "0")
+        .astype(float)
+    )
 
 
 # Splits the attendance column into two separate columns (tickets sold and
@@ -98,10 +101,8 @@ def plot_clusters(dataframe: pd.DataFrame, save_path: str = "clusters.png"):
         cmap="viridis",
         alpha=0.6,
     )
-    plt.xlabel("Tickets Sold")
-    plt.ylabel("Revenue (clean)")
-    plt.title("Concert Clusters (KMeans)")
-    plt.colorbar(label="Cluster")
+
+    create_plot_labels()
 
     # Always save (works in Docker/DevContainer)
     plt.savefig(save_path)
@@ -110,6 +111,13 @@ def plot_clusters(dataframe: pd.DataFrame, save_path: str = "clusters.png"):
     # Show only if a DISPLAY is available (local machine)
     if os.environ.get("DISPLAY"):
         plt.show()
+
+# Helper function to create plot labels
+def create_plot_labels():
+    plt.xlabel("Tickets Sold")
+    plt.ylabel("Revenue (clean)")
+    plt.title("Concert Clusters (KMeans)")
+    plt.colorbar(label="Cluster")
 
 
 if __name__ == "__main__":
