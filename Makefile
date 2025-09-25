@@ -12,3 +12,12 @@ run:
 # Clean cache
 clean:
 	rm -rf __pycache__ .ipynb_checkpoints
+
+# Lint the code
+lint:
+	flake8 --max-line-length=90 *.py
+
+
+# Format the code
+format:
+	black analyzedata.py test_analyzedata.py

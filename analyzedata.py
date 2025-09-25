@@ -6,12 +6,16 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
+
 # downloads and loads the dataset from Kaggle and returns the CSV path
 def download_data():
-    path = kagglehub.dataset_download("gayu14/taylor-concert-tours-impact-on-attendance-and")
+    path = kagglehub.dataset_download(
+        "gayu14/taylor-concert-tours-impact-on-attendance-and"
+    )
     files = os.listdir(path)
     csv_file = files[0]
     return os.path.join(path, csv_file)
+
 
 # reads in the concert dataset
 def load_data(csv_path: str) -> pd.DataFrame:
@@ -23,11 +27,11 @@ def clean_data(dataframe: pd.DataFrame) -> pd.DataFrame:
     dataframe = dataframe.drop_duplicates().copy()
 
     # cleans the Revenue column and creates a new numeric column
-    dataframe.loc[:, 'Revenue_clean'] = (
-        dataframe['Revenue']
+    dataframe.loc[:, "Revenue_clean"] = (
+        dataframe["Revenue"]
         .astype(str)
-        .str.replace(r'[^\d.]', '', regex=True)
-        .replace('', '0')
+        .str.replace(r"[^\d.]", "", regex=True)
+        .replace("", "0")
         .astype(float)
     )
 
@@ -35,57 +39,64 @@ def clean_data(dataframe: pd.DataFrame) -> pd.DataFrame:
 
     # Helper function to clean numbers and convert the strings to integers
     def clean_number(s):
-        s = re.sub(r'[^\d]', '', str(s))
+        s = re.sub(r"[^\d]", "", str(s))
         return int(s) if s else 0
 
-    dataframe.loc[:, 'Tickets_Sold'] = attendance_split[0].apply(clean_number)
-    dataframe.loc[:, 'Tickets_Available'] = attendance_split[1].apply(clean_number)
-    dataframe.loc[:, 'Attendance_Rate'] = (
-        dataframe['Tickets_Sold'] / dataframe['Tickets_Available'].replace(0, 1)
-    )
+    dataframe.loc[:, "Tickets_Sold"] = attendance_split[0].apply(clean_number)
+    dataframe.loc[:, "Tickets_Available"] = attendance_split[1].apply(clean_number)
+    dataframe.loc[:, "Attendance_Rate"] = dataframe["Tickets_Sold"] / dataframe[
+        "Tickets_Available"
+    ].replace(0, 1)
 
     return dataframe
 
-# Splits the attendance column into two separate columns (tickets sold and tickets available)
+
+# Splits the attendance column into two separate columns (tickets sold and
+# tickets available)
 def split_attendance_col(dataframe):
     attendance_split = (
-        dataframe['Attendance (tickets sold / available)']
+        dataframe["Attendance (tickets sold / available)"]
         .astype(str)
-        .fillna('0/0')
-        .str.split('/', expand=True)
+        .fillna("0/0")
+        .str.split("/", expand=True)
     )
-    
+
     return attendance_split
+
 
 # Summarizes key statistics from the cleaned dataframe
 def summarize_data(dataframe: pd.DataFrame):
     return {
-        "avg_revenue_tour": dataframe.groupby('Tour')['Revenue_clean'].mean(),
-        "concerts_per_country": dataframe.groupby('Country')['City'].count(),
-        "total_revenue_country": dataframe.groupby('Country')['Revenue_clean'].sum(),
-        "avg_revenue_by_country": dataframe.groupby('Country')['Revenue_clean'].mean().reset_index(),
+        "avg_revenue_tour": dataframe.groupby("Tour")["Revenue_clean"].mean(),
+        "concerts_per_country": dataframe.groupby("Country")["City"].count(),
+        "total_revenue_country": dataframe.groupby("Country")["Revenue_clean"].sum(),
+        "avg_revenue_by_country": dataframe.groupby("Country")["Revenue_clean"]
+        .mean()
+        .reset_index(),
     }
+
 
 # Applies KMeans clustering to the cleaned dataframe
 def run_kmeans(dataframe: pd.DataFrame, n_clusters: int = 3) -> pd.DataFrame:
-    X_cluster = dataframe[['Revenue_clean', 'Tickets_Sold', 'Attendance_Rate']]
+    X_cluster = dataframe[["Revenue_clean", "Tickets_Sold", "Attendance_Rate"]]
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X_cluster)
 
     kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-    dataframe.loc[:, 'Cluster'] = kmeans.fit_predict(X_scaled)
+    dataframe.loc[:, "Cluster"] = kmeans.fit_predict(X_scaled)
 
     return dataframe
+
 
 # Plots the clusters and saves the plot locally as a PNG
 def plot_clusters(dataframe: pd.DataFrame, save_path: str = "clusters.png"):
     plt.figure(figsize=(8, 6))
     plt.scatter(
-        dataframe['Tickets_Sold'],
-        dataframe['Revenue_clean'],
-        c=dataframe['Cluster'],
-        cmap='viridis',
-        alpha=0.6
+        dataframe["Tickets_Sold"],
+        dataframe["Revenue_clean"],
+        c=dataframe["Cluster"],
+        cmap="viridis",
+        alpha=0.6,
     )
     plt.xlabel("Tickets Sold")
     plt.ylabel("Revenue (clean)")
@@ -99,6 +110,7 @@ def plot_clusters(dataframe: pd.DataFrame, save_path: str = "clusters.png"):
     # Show only if a DISPLAY is available (local machine)
     if os.environ.get("DISPLAY"):
         plt.show()
+
 
 if __name__ == "__main__":
     # Main workflow with printouts
@@ -124,7 +136,18 @@ if __name__ == "__main__":
 
     dataframe = run_kmeans(dataframe)
     print("\nCluster Centers added. Sample with cluster labels:")
-    print(dataframe[['Tour', 'City', 'Country', 'Revenue_clean',
-              'Tickets_Sold', 'Attendance_Rate', 'Cluster']].head())
+    print(
+        dataframe[
+            [
+                "Tour",
+                "City",
+                "Country",
+                "Revenue_clean",
+                "Tickets_Sold",
+                "Attendance_Rate",
+                "Cluster",
+            ]
+        ].head()
+    )
 
     plot_clusters(dataframe)

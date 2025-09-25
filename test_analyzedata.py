@@ -1,8 +1,6 @@
 import pytest
 import pandas as pd
 import numpy as np
-from sklearn.cluster import KMeans
-
 import analyzedata as ad
 
 
@@ -10,43 +8,50 @@ import analyzedata as ad
 # Unit Tests
 # -------------------------
 
+
 def test_clean_data_removes_duplicates():
-    df = pd.DataFrame({
-        "Tour": ["Tour A", "Tour A"],
-        "City": ["NYC", "NYC"],
-        "Country": ["United States", "United States"],
-        "Revenue": ["$1000", "$1000"],
-        "Attendance (tickets sold / available)": ["100/200", "100/200"]
-    })
-    cleaned = ad.clean_data(df)
+    dataframe = pd.DataFrame(
+        {
+            "Tour": ["Tour A", "Tour A"],
+            "City": ["NYC", "NYC"],
+            "Country": ["United States", "United States"],
+            "Revenue": ["$1000", "$1000"],
+            "Attendance (tickets sold / available)": ["100/200", "100/200"],
+        }
+    )
+    cleaned = ad.clean_data(dataframe)
     assert cleaned.shape[0] == 1  # duplicates removed
 
 
 def test_clean_data_revenue_and_attendance():
-    df = pd.DataFrame({
-        "Tour": ["Tour A"],
-        "City": ["NYC"],
-        "Country": ["United States"],
-        "Revenue": ["$1,500.75"],
-        "Attendance (tickets sold / available)": ["123/456"]
-    })
-    cleaned = ad.clean_data(df)
+    dataframe = pd.DataFrame(
+        {
+            "Tour": ["Tour A"],
+            "City": ["NYC"],
+            "Country": ["United States"],
+            "Revenue": ["$1,500.75"],
+            "Attendance (tickets sold / available)": ["123/456"],
+        }
+    )
+    cleaned = ad.clean_data(dataframe)
 
     assert np.isclose(cleaned["Revenue_clean"].iloc[0], 1500.75)
     assert cleaned["Tickets_Sold"].iloc[0] == 123
     assert cleaned["Tickets_Available"].iloc[0] == 456
-    assert np.isclose(cleaned["Attendance_Rate"].iloc[0], 123/456)
+    assert np.isclose(cleaned["Attendance_Rate"].iloc[0], 123 / 456)
 
 
 def test_clean_data_divide_by_zero():
-    df = pd.DataFrame({
-        "Tour": ["Tour A"],
-        "City": ["NYC"],
-        "Country": ["United States"],
-        "Revenue": ["$500"],
-        "Attendance (tickets sold / available)": ["100/0"]
-    })
-    cleaned = ad.clean_data(df)
+    dataframe = pd.DataFrame(
+        {
+            "Tour": ["Tour A"],
+            "City": ["NYC"],
+            "Country": ["United States"],
+            "Revenue": ["$500"],
+            "Attendance (tickets sold / available)": ["100/0"],
+        }
+    )
+    cleaned = ad.clean_data(dataframe)
     assert cleaned["Attendance_Rate"].iloc[0] == 100  # handled safely
 
 
@@ -64,16 +69,19 @@ def test_summarize_data_returns_expected_keys(sample_df):
 # Integration / System Tests
 # -------------------------
 
+
 @pytest.fixture
 def sample_df():
     """Provide a small sample dataframe to simulate concerts."""
-    return pd.DataFrame({
-        "Tour": ["Tour A", "Tour A", "Tour B"],
-        "City": ["New York", "LA", "London"],
-        "Country": ["United States", "United States", "UK"],
-        "Revenue": ["$1000", "$2000", "$1500"],
-        "Attendance (tickets sold / available)": ["100/200", "300/400", "250/250"]
-    })
+    return pd.DataFrame(
+        {
+            "Tour": ["Tour A", "Tour A", "Tour B"],
+            "City": ["New York", "LA", "London"],
+            "Country": ["United States", "United States", "UK"],
+            "Revenue": ["$1000", "$2000", "$1500"],
+            "Attendance (tickets sold / available)": ["100/200", "300/400", "250/250"],
+        }
+    )
 
 
 def test_run_kmeans_adds_cluster_labels(sample_df):
