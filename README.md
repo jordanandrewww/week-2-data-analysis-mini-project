@@ -1,5 +1,9 @@
 # week-2-data-analysis-mini-project
 
+# CI Status Badge
+
+[![CI](https://github.com/jordanandrewww/week-2-data-analysis-mini-project/actions/workflows/main.yml/badge.svg)](https://github.com/jordanandrewww/week-2-data-analysis-mini-project/actions/workflows/main.yml)
+
 # Project Description
 
 This mini project for week 3 is a continuation of week 2, where we practice using dev containers
