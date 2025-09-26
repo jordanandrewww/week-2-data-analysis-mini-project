@@ -159,3 +159,54 @@ if __name__ == "__main__":
     )
 
     plot_clusters(dataframe)
+
+    import matplotlib.pyplot as plt
+
+    # colors that match Taylor Swift album themes
+    colors = ["yellow", "black", "purple", "skyblue", "red"] 
+
+    album_names = ["Fearless", "Reputation", "Speak Now", "1989", "Red"]
+
+    avg_revenue_tour = summaries["avg_revenue_tour"]
+
+    plt.style.use("seaborn-v0_8")
+    plt.figure(figsize=(12, 7))
+
+    bars = plt.bar(
+        avg_revenue_tour.index,          
+        avg_revenue_tour.values,   
+        color=colors[:len(avg_revenue_tour)]
+    )
+
+    # Titles and labels
+    plt.title("Average Revenue by Tour", fontsize=16, weight="bold")
+    plt.xlabel("Tour", fontsize=14)
+    plt.ylabel("Average Revenue (clean)", fontsize=14)
+
+    # Override long names with short labels
+    plt.xticks(
+        ticks=range(len(avg_revenue_tour)),
+        labels=album_names[:len(avg_revenue_tour)],
+        rotation=45, ha="right", fontsize=12
+    )
+    plt.yticks(fontsize=12)
+
+    # Add value labels
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(
+            bar.get_x() + bar.get_width()/2,
+            height,
+            f"${height:,.0f}",
+            ha="center", va="bottom",
+            fontsize=10
+        )
+
+    plt.tight_layout()
+    plt.savefig("avg_revenue_by_tour.png", dpi=300, bbox_inches="tight")
+    print("Average Revenue by Tour plot saved as avg_revenue_by_tour.png")
+
+    plt.show()
+
+
+        
