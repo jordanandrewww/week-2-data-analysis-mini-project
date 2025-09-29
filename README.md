@@ -12,6 +12,8 @@ with clear structure and edge case handling.
 
 This project analyzes Taylor Swift’s concert tours dataset to explore attendance, revenue, and tour patterns. After cleaning and preparing the dataset, a KMeans clustering model is applied to identify groups of concerts (e.g., high-revenue stadium shows vs. smaller under-attended concerts). The project demonstrates skills in data cleaning, exploratory analysis, and machine learning clustering.
 
+For week 3, I also added another data visualization: a bar chart that shows the total revenue for each tour. I thought that this data is more impactful, and it is really interesting (in my opinion) to see how much bigger the Reputation tour was compared to the previous tours.
+
 As a disclaimer, this dataset was last updated 2 years ago, which means it does not include data from Taylor Swift's most recent (and biggest) tour (The Era's Tour).
 
 # Data source
@@ -97,3 +99,7 @@ Click it. VS Code will build the container using .devcontainer/devcontainer.json
 - Scatterplot of Tickets_Sold vs. Revenue_clean colored by cluster (when run inside the dev
 container, you can view the scatterplot locally, as the file called clusters.png will be created
 automatically and you can click on it to view)
+
+- Bar chart of Tour vs Revenue, where each bar's color corresponds with that tour album's theme color.
+- when run when run inside the dev container, you can view the bar chart locally, as the file called avg_revenue_by_tour.png will be created
+automatically and you can click on it to view
