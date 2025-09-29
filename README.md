@@ -6,9 +6,11 @@
 
 # Project Description
 
-This mini project for week 3 is a continuation of week 2, where we practice using dev containers
-and creating unit tests/additional testing to ensure that core functions such as data loading, filtering, grouping, preprocessing, and machine learning model behavior, all function properly,
-with clear structure and edge case handling.
+This mini project for week 3 is a continuation of week 2, but this week we focused on making the code cleaner and more readable, using refactoring, code
+commenting, and code quality tools like black and flake8. The key take away for this week
+and for this overall project is that it is important that we are able to take data from
+a dataset, clean it, and then use it to create various visualizations that can allow us to
+make clear, meaningul insights about said data.
 
 This project analyzes Taylor Swift’s concert tours dataset to explore attendance, revenue, and tour patterns. After cleaning and preparing the dataset, a KMeans clustering model is applied to identify groups of concerts (e.g., high-revenue stadium shows vs. smaller under-attended concerts). The project demonstrates skills in data cleaning, exploratory analysis, and machine learning clustering.
 
